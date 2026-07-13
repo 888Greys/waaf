@@ -1,5 +1,5 @@
-const API_URL = "https://p.breachbase.lol/v1";
-const TENANT_KEY = "nmnmnnm090909";
+const API_URL = import.meta.env.VITE_BRIDGE_URL;
+const TENANT_KEY = import.meta.env.VITE_TENANT_KEY;
 
 document.addEventListener('DOMContentLoaded', () => {
     const welcomeScreen = document.getElementById('welcome-screen');
