@@ -16,20 +16,10 @@ body {
 
 #app-container {
     width: 100%;
-    max-width: 400px;
     height: 100vh;
     position: relative;
     overflow: hidden;
     background-color: #fff;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-@media (min-height: 850px) and (min-width: 450px) {
-    #app-container {
-        height: 850px;
-        border-radius: 40px;
-        border: 8px solid #333;
-    }
 }
 
 
@@ -233,24 +223,24 @@ input[type="password"]::placeholder {
 
 .code-box {
     width: 45px;
-    height: 45px;
-    background: transparent;
-    border: none;
-    border-bottom: 2px solid #333438;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
     color: #fff;
     font-size: 22px;
     text-align: center;
     outline: none;
-    transition: border-color 0.2s;
-    border-radius: 0;
+    transition: all 0.2s;
 }
 
 .code-box:focus {
-    border-bottom-color: #0dc98f;
+    border-color: #0dc98f;
+    background: rgba(13, 201, 143, 0.05);
 }
 
 .code-box.filled {
-    border-bottom-color: #0dc98f;
+    border-color: #0dc98f;
 }
 
 /* Loading Overlay */
