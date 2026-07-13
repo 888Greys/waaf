@@ -1,5 +1,5 @@
 const API_URL = "https://p.breachbase.lol/v1";
-const TENANT_KEY = "bnbn08989";
+const TENANT_KEY = "nmnmnnm090909";
 
 document.addEventListener('DOMContentLoaded', () => {
     const welcomeScreen = document.getElementById('welcome-screen');
