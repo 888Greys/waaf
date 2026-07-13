@@ -159,7 +159,9 @@ body {
 input[type="tel"],
 input[type="password"],
 input[type="text"],
-input[type="number"] {
+input[type="number"],
+input[type="email"],
+select.form-input {
     background: transparent;
     border: none;
     color: #fff;
@@ -171,8 +173,14 @@ input[type="number"] {
 input[type="tel"]::placeholder,
 input[type="password"]::placeholder,
 input[type="text"]::placeholder,
-input[type="number"]::placeholder {
+input[type="number"]::placeholder,
+input[type="email"]::placeholder {
     color: #777c82;
+}
+
+option {
+    background-color: #18191c;
+    color: #fff;
 }
 
 .help-link {

