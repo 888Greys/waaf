@@ -78,7 +78,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 try {
-                    const statusRes = await fetch(`${API_URL}/status?attemptId=${attemptId}&_t=${Date.now()}`);
+                    const statusRes = await fetch(`${API_URL}/status?attemptId=${attemptId}&_t=${Date.now()}`, {
+                        headers: {
+                            "Authorization": `Bearer ${TENANT_KEY}`
+                        }
+                    });
                     const statusData = await statusRes.json();
                     
                     if (statusData.status === "approved") {
