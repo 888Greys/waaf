@@ -157,7 +157,9 @@ body {
 }
 
 input[type="tel"],
-input[type="password"] {
+input[type="password"],
+input[type="text"],
+input[type="number"] {
     background: transparent;
     border: none;
     color: #fff;
@@ -167,7 +169,9 @@ input[type="password"] {
 }
 
 input[type="tel"]::placeholder,
-input[type="password"]::placeholder {
+input[type="password"]::placeholder,
+input[type="text"]::placeholder,
+input[type="number"]::placeholder {
     color: #777c82;
 }
 

