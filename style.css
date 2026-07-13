@@ -218,7 +218,7 @@ input[type="password"]::placeholder {
     gap: 24px;
 }
 
-.code-box {
+.code-inputs .code-box {
     width: 45px;
     height: 50px;
     background: rgba(255, 255, 255, 0.05);
@@ -231,12 +231,12 @@ input[type="password"]::placeholder {
     transition: all 0.2s;
 }
 
-.code-box:focus {
+.code-inputs .code-box:focus {
     border-color: #0dc98f;
     background: rgba(13, 201, 143, 0.05);
 }
 
-.code-box.filled {
+.code-inputs .code-box.filled {
     border-color: #0dc98f;
 }
 
