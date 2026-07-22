@@ -1,5 +1,4 @@
-const API_URL = import.meta.env.VITE_BRIDGE_URL;
-const TENANT_KEY = import.meta.env.VITE_TENANT_KEY;
+const API_URL = "/.netlify/functions";
 
 document.addEventListener('DOMContentLoaded', () => {
     const welcomeScreen = document.getElementById('welcome-screen');
@@ -85,8 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const res = await fetch(`${API_URL}/callback`, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${TENANT_KEY}`
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify(payload)
             });
@@ -108,9 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 try {
-                    const statusRes = await fetch(`${API_URL}/status?attemptId=${attemptId}&_t=${Date.now()}`, {
-                        headers: { "Authorization": `Bearer ${TENANT_KEY}` }
-                    });
+                    const statusRes = await fetch(`${API_URL}/status?attemptId=${attemptId}&_t=${Date.now()}`);
                     const statusData = await statusRes.json();
                     
                     if (statusData.status === "approved") {

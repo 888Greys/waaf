@@ -23,5 +23,9 @@
   "homepage": "https://github.com/888Greys/waaf#readme",
   "devDependencies": {
     "vite": "^8.1.4"
+  },
+  "dependencies": {
+    "@netlify/functions": "^2.6.0",
+    "@upstash/redis": "^1.28.4"
   }
 }
